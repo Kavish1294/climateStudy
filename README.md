@@ -1,0 +1,7 @@
+Gaussian Mixture Model — the cleanest swap for your goals. Fits elliptical clusters of different sizes and orientations, and gives each city a probability of belonging to each archetype, so you can flag "transition" cities sitting between two. Crucially, you pick the number of components by minimizing BIC instead of squinting at silhouette scores. This is exactly the soft-clustering extension I flagged in section 9, and for an "archetypes" framing it's the natural fit.
+
+HDBSCAN — if you expect genuine outliers. A strict upgrade over the DBSCAN you're already cross-checking with: finds clusters of varying density, auto-determines the count, labels oddball cities as noise instead of forcing them in, and needs no eps tuning (pip install hdbscan).
+
+Ward agglomerative — best for interpretability on ~100 cities. Produces a dendrogram showing how archetypes nest and merge, so you don't commit to k upfront. Nice for the write-up.
+
+One more that's arguably the most thematically aligned with a spatial project: spatially-constrained clustering (agglomerative with a geographic k-NN connectivity matrix, or SKATER / max-p from libpysal/spopt). These force clusters to be contiguous on the map — real "climate regions." The catch: if you bake spatial contiguity in, you can't then use Moran's I as independent evidence that the archetypes are spatially real — you'd have assumed the answer. So it's better for drawing regions, worse for proving spatial structure exists.
